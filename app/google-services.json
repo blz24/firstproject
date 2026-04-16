@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "820621702108",
+    "project_id": "firstproject-a2760",
+    "storage_bucket": "firstproject-a2760.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:820621702108:android:ab187c6b83c67369231519",
+        "android_client_info": {
+          "package_name": "com.deepseek.firstproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDblMFNbEHXuF5pODcxhuNs83zoVHUg_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
