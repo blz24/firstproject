@@ -102,4 +102,24 @@ class AuthViewModel(var navController: NavHostController, var context: Context) 
             onResult("Guest")
         }
     }
+    //get the whole user profile
+    fun getUserData(onResult: (User?) -> Unit) {
+        val userId = mAuth.currentUser?.uid
+
+        if (userId != null) {
+            val ref = FirebaseDatabase.getInstance()
+                .getReference("Users/$userId")
+
+            ref.get().addOnSuccessListener { snapshot ->
+                val user = snapshot.getValue(User::class.java)
+                onResult(user)
+            }.addOnFailureListener {
+                onResult(null)
+            }
+        } else {
+            onResult(null)
+        }
+    }
+
+
 }

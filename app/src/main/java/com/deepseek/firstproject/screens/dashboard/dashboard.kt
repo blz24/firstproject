@@ -42,6 +42,8 @@ import com.deepseek.firstproject.navigation.ROUTE_ADD_PRODUCT
 import com.deepseek.firstproject.navigation.ROUTE_LISTPRODUCT
 import com.deepseek.firstproject.navigation.ROUTE_LOGIN
 import com.deepseek.firstproject.navigation.ROUTE_MYINTENTS
+import com.deepseek.firstproject.navigation.ROUTE_PROFILE
+import com.deepseek.firstproject.navigation.ROUTE_UPDATEPRODUCT
 import com.deepseek.firstproject.screens.Homescreen.HomeCard
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -88,7 +90,7 @@ fun DashBoardScreen(navController: NavHostController){
                 )
                 NavigationBarItem(
                     selected = false,
-                    onClick = {},
+                    onClick = {navController.navigate(ROUTE_PROFILE)},
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
                     label = { Text("Profile") }
                 )
@@ -121,7 +123,9 @@ fun DashBoardScreen(navController: NavHostController){
                 HomeCard(title = "ADD Product", background = Color.Blue, onClick = {
                     navController.navigate(ROUTE_ADD_PRODUCT)
                 })
-                HomeCard(title = "Update Product", background = Color.Magenta, onClick = {})
+                HomeCard(title = "Update Product", background = Color.Magenta, onClick = {navController.navigate(
+                    ROUTE_UPDATEPRODUCT
+                )})
             }
             Row {
                 HomeCard(title = "Product List", background = Color.Gray, onClick = {navController.navigate(

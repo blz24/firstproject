@@ -1,5 +1,7 @@
 package com.deepseek.firstproject.screens.products
-
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -29,63 +31,96 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.deepseek.firstproject.data.ProductViewModel
 import com.deepseek.firstproject.models.Product
+import com.deepseek.firstproject.navigation.ROUTE_UPDATEPRODUCT
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductListScreen(navController: NavHostController) {
+fun ProductListScreen(navController: NavHostController){
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Product List") },
+                title={Text("Product lIST")},
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.Cyan
+                    containerColor = Color(0xFFD0BCFF)
                 )
             )
         }
-    ) { innerPadding ->
-        var context = LocalContext.current
-        var myproduct = ProductViewModel(navController, context)
+    ) {
+            innerpadding ->
+        var context= LocalContext.current
+        var myproductviewmodel= ProductViewModel(navController, context)
 
-        val product= remember { mutableStateOf(Product("","","","",""))  }
-        val products = remember { mutableStateListOf<Product>() }
-
+        val product= remember { mutableStateOf(Product("","","","","")) }
+        val products=remember { mutableStateListOf<Product>()}
 
         //fetch products
-       LaunchedEffect(Unit){
-           myproduct.allProducts(product, products)
-       }
+        LaunchedEffect(Unit) {
+            myproductviewmodel.allProducts(product,products)
 
-        LazyColumn(modifier = Modifier.padding(innerPadding)) {
-            items(products) {
-               item->
+        }
+        LazyColumn(modifier = Modifier.padding(innerpadding)) {
+            items(products){
+                    item ->
                 Card(
                     modifier = Modifier.padding(10.dp)
                         .fillMaxWidth(),
-                ){
+                ) {
                     //image preview
+
                     AsyncImage(
-                        model = item.imageUrl,
+                        model=item.imageUrl,
                         contentDescription = "product",
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier
+                        modifier= Modifier
                             .fillMaxWidth()
                             .height(180.dp)
                     )
                     Spacer(modifier = Modifier.height(10.dp))
+
                     Text(
                         text = item.name,
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.padding(8.dp),
+                        style = MaterialTheme.typography.titleMedium
+                    )
 
+                    Text(text = "Price: KES ${item.price}")
+                    Text(text =item.description)
+
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        //  Delete
+                        Text(
+                            text = "Delete",
+                            color = MaterialTheme.colorScheme.error,
+                            modifier = Modifier
+                                .clickable {
+                                    myproductviewmodel.deleteProduct(item.id)
+                                }
                         )
+                        // ✏ Update
+                        Text(
+                            text = "Update",
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier
+                                .clickable {
+                                    navController.navigate("$ROUTE_UPDATEPRODUCT/${item.id}")
+                                }
+                        )
+                    }
                 }
             }
         }
     }
 }
 
+
+
+
+
 @Preview(showBackground = true)
 @Composable
-fun ProductListScreenPreview() {
+fun productlistpreview(){
     ProductListScreen(rememberNavController())
 }

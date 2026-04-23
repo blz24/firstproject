@@ -10,8 +10,11 @@ import com.deepseek.firstproject.screens.dashboard.DashBoardScreen
 import com.deepseek.firstproject.screens.login.LoginScreen
 import com.deepseek.firstproject.screens.products.AddProductScreen
 import com.deepseek.firstproject.screens.products.ProductListScreen
+import com.deepseek.firstproject.screens.products.UpdateProductScreen
+import com.deepseek.firstproject.profile.ProfileScreen
 import com.deepseek.firstproject.screens.register.RegisterScreen
 import com.deepseek.firstproject.screens.splashscreen.SplashScreen
+import com.deepseek.firstproject.screens.demo.IntentScreen
 
 @Composable
 fun AppNavHost(
@@ -40,16 +43,18 @@ fun AppNavHost(
             AddProductScreen(navController)
         }
         composable(ROUTE_MYINTENTS) {
-            MyIntentsScreen(navController)
+            IntentScreen(navController)
         }
         composable(ROUTE_LISTPRODUCT) {
             ProductListScreen(navController)
         }
+        composable( ROUTE_UPDATEPRODUCT + "/{productId}") { backStackEntry ->
+            val productId = backStackEntry.arguments?.getString("productId")!!
+            UpdateProductScreen(navController, productId)
+        }
+        composable(ROUTE_PROFILE) {
+            ProfileScreen(navController)
+        }
 
     }
-}
-
-@Composable
-fun MyIntentsScreen(x0: NavHostController) {
-    TODO("Not yet implemented")
 }
